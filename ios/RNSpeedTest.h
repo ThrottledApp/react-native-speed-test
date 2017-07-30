@@ -5,7 +5,11 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface RNSpeedTest : NSObject <RCTBridgeModule>
+#import <UIKit/UIKit.h>
 
+@interface RNSpeedTest : NSObject <RCTBridgeModule>
+@property (nonatomic) CFAbsoluteTime startTime;
+@property (nonatomic) CFAbsoluteTime stopTime;
+@property (nonatomic) long long bytesReceived;
+@property (nonatomic, copy) void (^speedTestCompletionHandler)(CGFloat megabytesPerSecond, NSError *error);
 @end
-  
