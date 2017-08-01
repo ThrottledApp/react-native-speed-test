@@ -11,8 +11,7 @@ RCT_REMAP_METHOD(getSpeed,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     [self testDownloadSpeedWithTimout:5.0 completionHandler:^(CGFloat megabytesPerSecond, NSError *error) {
-        CGFloat *speed = &megabytesPerSecond;
-        NSString *str = [NSString stringWithFormat:@"%.3f", megabytesPerSecond];
+        NSString *str = [NSString stringWithFormat:@"%.1f", megabytesPerSecond];
         NSLog(@"%0.1f; error = %@", megabytesPerSecond, error);
         resolve(str);
     }];
@@ -41,7 +40,7 @@ RCT_REMAP_METHOD(getSpeed,
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     CFAbsoluteTime elapsed = self.stopTime - self.startTime;
-    CGFloat speed = elapsed != 0 ? self.bytesReceived / (CFAbsoluteTimeGetCurrent() - self.startTime) / 1000.0 / 100.0 : -1;
+    CGFloat speed = elapsed != 0 ? self.bytesReceived / (CFAbsoluteTimeGetCurrent() - self.startTime) / 100000.0 : -1;
 
     // treat timeout as no error (as we're testing speed, not worried about whether we got entire resource or not
 
